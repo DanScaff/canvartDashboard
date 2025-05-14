@@ -3,15 +3,18 @@ import Router from '@koa/router';
 
 export default {
   register({ strapi }) {
-    // 1) crea un nuovo router
-    const router = new Router();
+    // Prendi in sicurezza il prefix, se esiste
+    const prefix = strapi.config.server?.router?.prefix ?? '';
 
-    // 2) definisci la route /ping
+    // Crea un router Koa con quel prefix (anche '' va bene)
+    const router = new Router({ prefix });
+
+    // Definisci /ping (in realtà sarà prefix + /ping)
     router.get('/ping', async (ctx) => {
       ctx.body = 'pong';
     });
 
-    // 3) monta il router sull'app di Strapi
+    // Monta le routes su Strapi
     strapi.server.app
       .use(router.routes())
       .use(router.allowedMethods());
