@@ -1,20 +1,19 @@
-// import type { Core } from '@strapi/strapi';
+// src/index.ts
+import Router from '@koa/router';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register({ strapi }) {
+    // 1) crea un nuovo router
+    const router = new Router();
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+    // 2) definisci la route /ping
+    router.get('/ping', async (ctx) => {
+      ctx.body = 'pong';
+    });
+
+    // 3) monta il router sull'app di Strapi
+    strapi.server.app
+      .use(router.routes())
+      .use(router.allowedMethods());
+  },
 };
