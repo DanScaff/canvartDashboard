@@ -1,29 +1,38 @@
-# .github/workflows/keep-alive.yml
 name: Keep Strapi Alive
 
 on:
-  # Trigger automatico ogni 10 minuti
   schedule:
     - cron: '*/10 * * * *'
-  # Permette di far partire manualmente il workflow dal tab Actions
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
-    steps:
-      - name: Ping Strapi
-        id: ping
-        run: |
-          # fai la richiesta e cattura lo status code
-          HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://canvartdashboard.onrender.com/ping)
-          echo "➡️ Status code: $HTTP_STATUS"
-          # fallisci se non è 200
-          if [ "$HTTP_STATUS" -ne 200 ]; then
-            echo "::error::Ping failed with status $HTTP_STATUS"
-            exit 1
-          fi
 
-      - name: Success
+    steps:
+      - name: Ping /ping
+        id: test_ping
+        run: |
+          set -e
+          # Cambia qui con il tuo dominio Render
+          URL="https://TUO-SERVIZIO.onrender.com"
+          for path in "" "api"; do
+            echo "→ Testing $URL/${path:+$path/}ping"
+            # -v per debug, -m 10 timeout, -w per solo status
+            HTTP_STATUS=$(curl -v -m 10 -s -w "%{http_code}" "$URL/${path:+$path/}ping" -o response.txt || true)
+            echo "Status for /${path:+$path/}ping: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -eq 200 ]; then
+              echo "✅ Success on /${path:+$path/}ping"
+              exit 0
+            fi
+            echo "--- response body ---"
+            cat response.txt || true
+            echo "----------------------"
+          done
+
+          echo "::error::All ping attempts failed"
+          exit 1
+
+      - name: Complete
         if: success()
-        run: echo "✅ Ping OK (200)"
+        run: echo "🎉 Strapi is alive!"
