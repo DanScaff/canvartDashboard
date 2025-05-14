@@ -15,7 +15,7 @@ jobs:
         run: |
           set -e
           # Cambia qui con il tuo dominio Render
-          URL="https://TUO-SERVIZIO.onrender.com"
+          URL="https://canvartdashboard.onrender.com/ping"
           for path in "" "api"; do
             echo "→ Testing $URL/${path:+$path/}ping"
             # -v per debug, -m 10 timeout, -w per solo status
