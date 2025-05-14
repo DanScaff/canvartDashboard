@@ -416,6 +416,7 @@ export interface ApiImageImage extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    cloudinaryPublicId: Schema.Attribute.String & Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

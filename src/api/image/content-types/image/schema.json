@@ -24,6 +24,10 @@
         "images",
         "files"
       ]
+    },
+    "cloudinaryPublicId": {
+      "type": "string",
+      "unique": true
     }
   }
 }
