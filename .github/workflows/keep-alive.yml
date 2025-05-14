@@ -1,0 +1,29 @@
+# .github/workflows/keep-alive.yml
+name: Keep Strapi Alive
+
+on:
+  # Trigger automatico ogni 10 minuti
+  schedule:
+    - cron: '*/10 * * * *'
+  # Permette di far partire manualmente il workflow dal tab Actions
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Strapi
+        id: ping
+        run: |
+          # fai la richiesta e cattura lo status code
+          HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://canvartdashboard.onrender.com/ping)
+          echo "➡️ Status code: $HTTP_STATUS"
+          # fallisci se non è 200
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "::error::Ping failed with status $HTTP_STATUS"
+            exit 1
+          fi
+
+      - name: Success
+        if: success()
+        run: echo "✅ Ping OK (200)"
