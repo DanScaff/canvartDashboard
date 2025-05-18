@@ -10,10 +10,15 @@ export default ({ env }: { env: (key: string) => string }) => ({
         actionOptions: {
             upload: {
               folder: 'fromStrapi',
+              transformation: [{ angle: 'auto' }],
             },
             uploadStream: {
               folder: 'fromStrapi',
+              transformation: [{ angle: 'auto' }],
             },
+                  actionParams: {
+        transformation: [{ angle: 'auto' }],    // oppure: { effect: 'auto_orientation' }
+      },
             delete: {},
         },
       },

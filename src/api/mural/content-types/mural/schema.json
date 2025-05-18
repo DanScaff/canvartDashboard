@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "murales",
+  "info": {
+    "singularName": "mural",
+    "pluralName": "murales",
+    "displayName": "Mural",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

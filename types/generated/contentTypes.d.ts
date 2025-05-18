@@ -441,6 +441,36 @@ export interface ApiImageImage extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMuralMural extends Struct.CollectionTypeSchema {
+  collectionName: 'murales';
+  info: {
+    description: '';
+    displayName: 'Mural';
+    pluralName: 'murales';
+    singularName: 'mural';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    images: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::mural.mural'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPaintingPainting extends Struct.CollectionTypeSchema {
   collectionName: 'paintings';
   info: {
@@ -991,6 +1021,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::collection.collection': ApiCollectionCollection;
       'api::image.image': ApiImageImage;
+      'api::mural.mural': ApiMuralMural;
       'api::painting.painting': ApiPaintingPainting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
