@@ -2,8 +2,10 @@
 
 import { Collection } from '../../../collection/content-types/collection/collection';
 import { Image } from '../../../image/content-types/image/image';
+import { Media } from '../../../../common/schemas-to-ts/Media';
 import { Collection_Plain } from '../../../collection/content-types/collection/collection';
 import { Image_Plain } from '../../../image/content-types/image/image';
+import { Media_Plain } from '../../../../common/schemas-to-ts/Media';
 import { AdminPanelRelationPropertyModification } from '../../../../common/schemas-to-ts/AdminPanelRelationPropertyModification';
 
 export interface Painting {
@@ -14,7 +16,8 @@ export interface Painting {
     technique?: string;
     measures?: string;
     collection?: { data: Collection };
-    images: { data: Image[] };
+    imagess: { data: Image[] };
+    images: { data: Media[] };
   };
 }
 export interface Painting_Plain {
@@ -24,7 +27,8 @@ export interface Painting_Plain {
   technique?: string;
   measures?: string;
   collection?: Collection_Plain;
-  images: Image_Plain[];
+  imagess: Image_Plain[];
+  images: Media_Plain[];
 }
 
 export interface Painting_NoRelations {
@@ -34,6 +38,7 @@ export interface Painting_NoRelations {
   technique?: string;
   measures?: string;
   collection?: number;
+  imagess: number[];
   images: number[];
 }
 
@@ -44,5 +49,6 @@ export interface Painting_AdminPanelLifeCycle {
   technique?: string;
   measures?: string;
   collection?: AdminPanelRelationPropertyModification<Collection_Plain>;
-  images: AdminPanelRelationPropertyModification<Image_Plain>;
+  imagess: AdminPanelRelationPropertyModification<Image_Plain>;
+  images: AdminPanelRelationPropertyModification<Media_Plain>[];
 }
