@@ -405,42 +405,6 @@ export interface ApiCollectionCollection extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiImageImage extends Struct.CollectionTypeSchema {
-  collectionName: 'images';
-  info: {
-    description: '';
-    displayName: 'Image';
-    pluralName: 'images';
-    singularName: 'image';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    cloudinaryPublicId: Schema.Attribute.String & Schema.Attribute.Unique;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    image: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::image.image'> &
-      Schema.Attribute.Private;
-    order: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiMuralMural extends Struct.CollectionTypeSchema {
   collectionName: 'murales';
   info: {
@@ -493,7 +457,6 @@ export interface ApiPaintingPainting extends Struct.CollectionTypeSchema {
     description: Schema.Attribute.Text;
     images: Schema.Attribute.Media<'images' | 'files', true> &
       Schema.Attribute.Required;
-    imagess: Schema.Attribute.Relation<'oneToMany', 'api::image.image'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1022,7 +985,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::collection.collection': ApiCollectionCollection;
-      'api::image.image': ApiImageImage;
       'api::mural.mural': ApiMuralMural;
       'api::painting.painting': ApiPaintingPainting;
       'plugin::content-releases.release': PluginContentReleasesRelease;

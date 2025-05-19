@@ -30,19 +30,14 @@
       "relation": "oneToOne",
       "target": "api::collection.collection"
     },
-    "imagess": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::image.image"
-    },
     "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": true
+      ]
     }
   }
 }
