@@ -15,7 +15,7 @@ jobs:
         run: |
           set -e
           # Cambia qui con il tuo dominio Render
-          URL="https://glowing-car-6710e4e2be.strapiapp.com/ping"
+          URL="https://glowing-car-6710e4e2be.strapiapp.com"
           for path in "" "api"; do
             echo "→ Testing $URL/${path:+$path/}ping"
             # -v per debug, -m 10 timeout, -w per solo status
