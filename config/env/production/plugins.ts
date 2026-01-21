@@ -19,6 +19,6 @@ export default ({ env }: { env: (key: string) => string }) => ({
       },
     },
     'schemas-to-ts': {
-        enabled: true,
+        enabled: false,
       },
   });
